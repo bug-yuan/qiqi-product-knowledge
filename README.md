@@ -19,12 +19,10 @@
 
 ### 方式一：把这一句话发给你的 AI 工具（推荐）
 
-复制下面整句，粘给任意有 shell 权限的 AI 工具（Claude Code、Codex、Cursor、OpenCode…），
-**不必说明你用哪个工具、不必记命令**：
+复制下面整句，粘给任意有 shell 权限的 AI 工具（Claude Code、Codex、Cursor、OpenCode…）：
 
 ```text
-请帮我安装乐享 skill（企企管理云产品知识库检索路由）。如果已经装过，先删掉再装最新版：
-npx --yes skills@latest remove -g -s qiqi-product-knowledge -y
+请帮我安装企企管理云产品知识库检索路由 skill：
 npx --yes skills@latest add bug-yuan/qiqi-product-knowledge -g -a universal -y
 装完确认 ~/.agents/skills/qiqi-product-knowledge/SKILL.md 存在，并提醒我重启或刷新会话。
 ```
@@ -35,11 +33,10 @@ npx --yes skills@latest add bug-yuan/qiqi-product-knowledge -g -a universal -y
 ### 方式二：手动执行
 
 ```bash
-# 先清掉旧版（没装过也不报错），再装最新
-npx --yes skills@latest remove -g -s qiqi-product-knowledge -y
+# 全局安装 / 覆盖升级
 npx --yes skills@latest add bug-yuan/qiqi-product-knowledge -g -a universal -y
 
-# 只装到当前项目（不加 -g）
+# 只装到当前项目
 npx --yes skills@latest add bug-yuan/qiqi-product-knowledge -a universal -y
 
 # 先看看仓里有什么，不安装
@@ -57,10 +54,11 @@ npx --yes skills@latest add bug-yuan/qiqi-product-knowledge --list
 ### 验证与升级
 
 ```bash
-# 看已装了什么、来源对不对（agents 字段为空属正常，universal 就是这样）
+# 看已装了什么、来源对不对
 npx --yes skills@latest ls -g --json
 
-# 升级：重跑上面方式一的 remove + add 两步即可
+# 升级：重跑上面那条 add 即可（覆盖式）；也可用下面这条等价写法
+npx --yes skills@latest update qiqi-product-knowledge -g -y
 ```
 
 安装是**复制**而非软链：改仓库后不会自动生效，必须重新执行 `add` 覆盖。
